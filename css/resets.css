@@ -1,0 +1,219 @@
+/* ===========================
+   Necessary Imports & Resets
+=========================== */
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-family: "Inter", sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #fff;
+  color: #000814;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* ===========================
+   Root Variables
+=========================== */
+:root {
+  /* Colors */
+  --color-bg: #000814;
+  --color-bg-lighter: #001d3d;
+  --color-bg-lightest: #003566;
+  --color-highlight: #ffd60a;
+  --color-text: #ffc300;
+  --color-text-muted: #ffc40078;
+
+  /* Fonts */
+  --font-heading: "Poppins", sans-serif;
+  --font-body: "Inter", sans-serif;
+
+  /* Spacing */
+  --spacing: 8px;
+
+  /* Border radius & transitions */
+  --radius: 4px;
+  --transition-speed: 0.3s;
+}
+
+/* ===========================
+   Base Typography & Layout
+=========================== */
+body {
+  font-family: var(--font-body);
+  color: var(--color-text);
+  background: var(--color-bg-lighter);
+  line-height: 1.6;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  color: var(--color-text);
+  letter-spacing: 1px;
+  margin-bottom: var(--spacing);
+}
+
+p {
+  margin-bottom: var(--spacing);
+}
+
+/* ===========================
+   Container & Grid System
+=========================== */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: calc(var(--spacing) * 2);
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing);
+}
+
+.col {
+  flex: 1;
+}
+
+/* ===========================
+   Buttons & Links
+=========================== */
+.btn {
+  display: inline-block;
+  padding: calc(var(--spacing) * 1.5) calc(var(--spacing) * 3);
+  background-color: var(--color-highlight);
+  color: var(--color-bg);
+  font-family: var(--font-heading);
+  font-weight: 600;
+  border-radius: var(--radius);
+  transition: background-color var(--transition-speed) ease,
+    color var(--transition-speed) ease;
+}
+
+.btn:hover,
+.btn:focus {
+  background-color: var(--color-text);
+  color: var(--color-bg-lightest);
+}
+
+.link {
+  color: var(--color-highlight);
+  transition: color var(--transition-speed) ease;
+}
+
+.link:hover,
+.link:focus {
+  color: var(--color-text);
+}
+
+/* ===========================
+   Responsive Media Queries
+=========================== */
+@media (min-width: 576px) {
+  /* Small devices */
+}
+@media (min-width: 768px) {
+  /* Medium devices */
+}
+@media (min-width: 992px) {
+  /* Large devices */
+}
+@media (min-width: 1200px) {
+  /* Extra large devices */
+}
+
+/* ===========================
+   Animations
+=========================== */
+.fade-in {
+  opacity: 0;
+  animation: fadeIn 0.5s forwards;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+.slide-up {
+  transform: translateY(20px);
+  opacity: 0;
+  animation: slideUp 0.5s forwards;
+}
+
+@keyframes slideUp {
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* ===========================
+   Utility Classes
+=========================== */
+.mt-1 {
+  margin-top: var(--spacing);
+}
+.mb-1 {
+  margin-bottom: var(--spacing);
+}
+.p-1 {
+  padding: var(--spacing);
+}
+.text-center {
+  text-align: center;
+}
+.text-right {
+  text-align: right;
+}
+.text-left {
+  text-align: left;
+}
+
+/* ===========================
+   BEM Example (Cards)
+=========================== */
+.card {
+  background-color: var(--color-bg);
+  border-radius: var(--radius);
+  padding: calc(var(--spacing) * 2);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+.card__title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: var(--spacing);
+  color: var(--color-highlight);
+}
+
+.card__body {
+  font-size: 1rem;
+  color: var(--color-text-muted);
+}
+
+.card__footer {
+  margin-top: var(--spacing);
+  text-align: right;
+}
