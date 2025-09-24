@@ -13,6 +13,10 @@
 // on the client before rendering (to avoid hydration mismatch).
 // -------------------------------------------------------
 
+"use client";
+
+// useEffect → runs code after component mounts (side effects).
+// useState → tracks simple piece of state (mounted or not).
 import { useReducer, useEffect, useState } from "react";
 import { taskReducer } from "./app/components/TaskReducer";
 import { Task } from "./app/types/Task";

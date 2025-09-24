@@ -1,49 +1,67 @@
 // taskReducer.ts
 // --------------------------------------------------
-// This file contains the reducer logic for managing
-// tasks in TaskFlow (add, delete, toggle complete).
-// We’re using useReducer in React so that all task-
-// related actions flow through one predictable place.
-//
-// Think of it like a “control tower”: it receives
-// actions (ADD_TASK, DELETE_TASK, TOGGLE_TASK), and
-// decides how to update the state array of tasks.
+// Reducer logic for managing TaskFlow tasks using useReducer in React.
+// All task-related state changes flow through this single "control tower"
+// to ensure predictable, centralized updates.
 // --------------------------------------------------
+"use client";
 
+import { useReducer } from "react";
 import { Task } from "../types/Task";
 
-// Define the allowed "actions" that can happen to our tasks.
-// Each action has a "type" and sometimes extra data (payload).
+/**
+ * Represents all possible actions that can affect the tasks state.
+ *
+ * - ADD_TASK: Adds a new task with a unique ID, incomplete status, and timestamp.
+ * - DELETE_TASK: Removes a task by its ID.
+ * - TOGGLE_TASK: Toggles the completion status of a task by its ID.
+ */
 export type Action =
-  | { type: "ADD_TASK"; payload: { text: string } } // when user adds a task
-  | { type: "DELETE_TASK"; payload: { id: string } } // when user deletes by id
-  | { type: "TOGGLE_TASK"; payload: { id: string } }; // when user checks/unchecks task
+  | { type: "ADD_TASK"; payload: { text: string } }
+  | { type: "DELETE_TASK"; payload: { id: string } }
+  | { type: "TOGGLE_TASK"; payload: { id: string } };
 
-// Reducer function: receives current state (array of tasks)
-// and an action, then returns a *new* state (immutably).
+/**
+ * The reducer function for TaskFlow tasks.
+ *
+ * @param {Task[]} state - The current array of tasks.
+ * @param {Action} action - The action object describing the update.
+ * @returns {Task[]} - The new, immutably updated array of tasks.
+ *
+ * Notes:
+ * - Always returns a new array; never mutates the existing state.
+ * - Acts as a single source of truth for all task-related state updates.
+ *
+ * Example usage in a React component:
+ *
+ * const [tasks, dispatch] = useReducer(taskReducer, []);
+ *
+ * // Add a task
+ * dispatch({ type: "ADD_TASK", payload: { text: "Learn React" } });
+ */
 export function taskReducer(state: Task[], action: Action): Task[] {
+  let newState: Task[];
+
   switch (action.type) {
     case "ADD_TASK": {
-      // Create a new task object
+      // Create a new task object with unique ID and timestamp
       const newTask: Task = {
-        id: crypto.randomUUID(), // generate unique ID
-        text: action.payload.text, // take text from payload
-        completed: false, // new tasks start incomplete
-        createdAt: new Date(), // track creation time
+        id: crypto.randomUUID?.(),
+        text: action.payload.text,
+        completed: false,
+        createdAt: new Date(),
       };
 
-      // Return a new array with the existing tasks + the new one
+      // Return a new array including the new task
       return [...state, newTask];
     }
 
     case "DELETE_TASK":
-      // Filter out the task that matches the given id
+      // Remove the task that matches the provided ID
       return state.filter((task) => task.id !== action.payload.id);
 
     case "TOGGLE_TASK":
-      // Map over all tasks:
-      // if task.id matches → flip its completed status
-      // else → keep it unchanged
+      // Toggle the completed status of the matching task
       return state.map((task) =>
         task.id === action.payload.id
           ? { ...task, completed: !task.completed }
@@ -51,7 +69,12 @@ export function taskReducer(state: Task[], action: Action): Task[] {
       );
 
     default:
-      // If the action type doesn’t match, just return the state as-is
+      // If action type is unknown, return state unchanged
       return state;
   }
+
+  // Debug logs for development
+  console.log("Action Dispatched:", action);
+  console.log("New State:", newState);
+  return newState;
 }

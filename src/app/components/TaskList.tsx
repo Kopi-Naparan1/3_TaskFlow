@@ -24,6 +24,7 @@
 // We use `map()` to loop over tasks, so every task is rendered
 // with the same structure: text + actions.
 // --------------------------------------------------
+"use client";
 
 import { Task } from "../types/Task";
 import { Action } from "./TaskReducer";

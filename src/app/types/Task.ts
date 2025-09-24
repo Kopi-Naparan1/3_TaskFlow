@@ -1,4 +1,6 @@
 // 👇 Task represents one single to-do item in TaskFlow
+"use client";
+
 export type Task = {
   /**
    * A unique identifier for each task.

@@ -8,6 +8,7 @@
 // an "ADD_TASK" action to our reducer (the “control tower”).
 // Think of this like the “order form” at a restaurant.
 // --------------------------------------------------
+"use client";
 
 import { useState } from "react";
 import { Action } from "./TaskReducer";
