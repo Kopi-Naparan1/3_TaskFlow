@@ -26,21 +26,105 @@ addTaskInput.addEventListener("keypress", (e) => {
 // 🔹 FUNCTION: CREATE A NEW TASK VISUALLY + SAVE
 // ===========================================
 
-function createTask(taskText) {
-  // Create a new <div> for the task
+function createTask(taskText, targetSelector = ".tasks-list.present") {
   const task = document.createElement("div");
-  task.classList.add("task"); // Add a class for styling
-  task.textContent = taskText; // Show the text the user typed
-  task.draggable = true; // Make the task draggable (for drag & drop)
+  task.classList.add("task");
+  task.draggable = true;
 
-  // Give it drag behavior (like pick-up, drop, move)
+  // ✅ Create a container for icons
+  const iconWrapper = document.createElement("div");
+  iconWrapper.classList.add("icon-wrapper");
+
+  const circleIcon = document.createElement("i");
+  circleIcon.classList.add("fa-regular", "fa-circle");
+
+  const checkIcon = document.createElement("i");
+  checkIcon.classList.add("fa-solid", "fa-check");
+
+  const trashIcon = document.createElement("i");
+  trashIcon.classList.add("fa-solid", "fa-trash");
+
+  // Put icons inside the wrapper
+  iconWrapper.appendChild(circleIcon);
+  iconWrapper.appendChild(checkIcon);
+  // do NOT append trash into the icon wrapper
+  // iconWrapper.appendChild(trashIcon);
+
+  // ✅ Create a <span> for task text
+  const text = document.createElement("span");
+  text.textContent = taskText;
+
+  // ✅ Append all to the task (wrapper first so clicks bubble to it)
+  task.appendChild(iconWrapper);
+  task.appendChild(text);
+
+  // place trash at the far right of the task row
+  task.appendChild(trashIcon);
+
+  // make trash actionable even though it's outside iconWrapper
+  trashIcon.addEventListener("click", (e) => {
+    e.stopPropagation(); // avoid bubbling to iconWrapper (which toggles completed)
+    task.remove();
+    saveTasks();
+  });
+
+  // ✅ Add drag behavior
   addDragEvents(task);
 
-  // Add it to the "present" column (the default active list)
-  document.querySelector(".tasks-list.present").appendChild(task);
+  // ✅ Append the task to the column (use targetSelector)
+  const target = document.querySelector(targetSelector);
+  if (target) target.appendChild(task);
 
-  // Save everything to localStorage so it persists when refreshing
+  // ✅ Add icon behaviors
+  iconWrapper.addEventListener("click", (e) => {
+    const targetEl = e.target;
+
+    // Trash is handled by its own listener (kept for safety)
+    if (targetEl.classList && targetEl.classList.contains("fa-trash")) {
+      task.remove();
+      saveTasks();
+      return;
+    }
+
+    // When user clicks the circle/check, move task to next column
+    if (
+      targetEl.classList &&
+      (targetEl.classList.contains("fa-circle") ||
+        targetEl.classList.contains("fa-check"))
+    ) {
+      // find current column id (parent of .tasks-list)
+      const currentList = task.closest(".tasks-list");
+      const currentColId =
+        currentList &&
+        currentList.parentElement &&
+        currentList.parentElement.id;
+
+      // decide destination
+      let destSelector = null;
+      if (currentColId === "todo") destSelector = "#doing .tasks-list";
+      else if (currentColId === "doing") destSelector = "#done .tasks-list";
+      else if (currentColId === "done") {
+        // already in done — toggle completed state instead of moving
+        task.classList.toggle("completed");
+        saveTasks();
+        return;
+      }
+
+      const dest = destSelector ? document.querySelector(destSelector) : null;
+      if (dest) {
+        // visual state: only tasks in "done" should be marked completed
+        if (destSelector.includes("#done")) task.classList.add("completed");
+        else task.classList.remove("completed");
+
+        dest.appendChild(task);
+        saveTasks();
+      }
+    }
+  });
+
+  // ✅ Save tasks after adding
   saveTasks();
+  return task;
 }
 
 // ===========================
@@ -51,19 +135,17 @@ function saveTasks() {
   const data = {}; // Temporary storage for all columns
 
   columns.forEach((col) => {
-    // Get the column's ID (like 'todo', 'progress', etc.)
-    const id = col.parentElement.id;
+    const id = col.parentElement && col.parentElement.id;
+    if (!id) return;
 
-    // Collect all task texts in this column
-    const tasks = Array.from(col.querySelectorAll(".task")).map(
-      (t) => t.textContent
-    );
+    const tasks = Array.from(col.querySelectorAll(".task")).map((t) => {
+      const span = t.querySelector("span"); // <-- fixed: define span
+      return span ? span.textContent.trim() : t.textContent.trim();
+    });
 
-    // Save it in the format { "todo": ["Task1", "Task2"], ... }
     data[id] = tasks;
   });
 
-  // Convert it into a string and store it permanently
   localStorage.setItem("tasks", JSON.stringify(data));
 }
 
@@ -72,34 +154,22 @@ function saveTasks() {
 // ==========================
 
 function loadTasks() {
-  // First, clear all current tasks (for a clean slate)
   columns.forEach((col) => (col.innerHTML = ""));
 
   let data;
   try {
-    // Try reading tasks from localStorage
     data = JSON.parse(localStorage.getItem("tasks"));
   } catch (e) {
-    // If corrupted data is found, clear it
     console.error("Invalid localStorage data:", e);
     localStorage.removeItem("tasks");
     data = null;
   }
-
-  // If nothing saved before, just stop
   if (!data) return;
 
-  // Loop through each column and recreate its tasks
   for (const [columnId, tasks] of Object.entries(data)) {
-    const col = document.querySelector(`#${columnId} .tasks-list`);
-
+    const selector = `#${columnId} .tasks-list`;
     tasks.forEach((taskText) => {
-      const task = document.createElement("div");
-      task.classList.add("task");
-      task.textContent = taskText;
-      task.draggable = true;
-      addDragEvents(task);
-      col.appendChild(task); // Add the recreated task
+      createTask(taskText, selector); // <-- use createTask so icons are created
     });
   }
 }

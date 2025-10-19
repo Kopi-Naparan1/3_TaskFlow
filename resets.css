@@ -1,7 +1,7 @@
 /* ===========================
-   Necessary Imports & Resets
+   Imports & Resets
 =========================== */
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Montserrat:wght@100..900&family=Poppins:wght@100..900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Manrope:wght@200..800&family=Poppins:wght@100..900&display=swap");
 
 * {
   margin: 0;
@@ -18,22 +18,29 @@ a {
    Root Variables
 =========================== */
 :root {
-  /* --- Core Brand Palette --- */
-  --clr-bg-dark: #0b132b; /* Deep navy (background base) */
-  --clr-bg-main: #1c2541; /* Secondary background */
-  --clr-bg-accent: #3a506b; /* Card or section backgrounds */
+  /* --- Core Brand Palette (Modern / Neutral + Accent) --- */
+  --clr-bg-dark: #111418; /* Deep charcoal — softer than pure black */
+  --clr-bg-main: #181c20; /* Slightly lighter layer (main sections) */
+  --clr-bg-accent: #222831; /* Card or container backgrounds */
 
-  --clr-accent: #ffd166; /* Softer gold highlight */
-  --clr-accent-strong: #fcca46; /* Brighter golden pop */
+  --clr-accent: #00adb5; /* Modern cyan accent */
+  --clr-accent-strong: #06d6a0; /* Brighter mint for highlights */
 
   /* --- Text Colors --- */
-  --clr-text-main: #f0f0f0; /* Main text (light neutral) */
-  --clr-text-muted: #a9a9b3; /* Muted text */
+  --clr-text-main: #f5f6f7; /* High contrast text */
+  --clr-text-muted: #a5aab3; /* Muted for secondary info */
   --clr-text-accent: var(--clr-accent);
 
-  /* --- Font Stacks --- */
+  /* --- Font Families --- */
   --font-heading: "Poppins", sans-serif;
-  --font-body: "Inter", sans-serif;
+  --font-body: "Manrope", "Inter", sans-serif;
+
+  /* --- Shape & Depth --- */
+  --radius: 12px; /* Adjust this for roundness of cards/buttons */
+  --shadow-elevate: 0 4px 20px rgba(0, 0, 0, 0.25);
+
+  /* --- Transition / Motion --- */
+  --transition-speed: 0.3s ease;
 }
 
 /* ===========================
@@ -44,4 +51,37 @@ body {
   color: var(--clr-text-main);
   background-color: var(--clr-bg-dark);
   line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Example usage of radius + accent */
+.card {
+  background-color: var(--clr-bg-accent);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-elevate);
+  padding: 1.5rem;
+  transition: transform var(--transition-speed),
+    box-shadow var(--transition-speed);
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+}
+
+.button {
+  display: inline-block;
+  background-color: var(--clr-accent);
+  color: #fff;
+  font-weight: 600;
+  border: none;
+  border-radius: var(--radius);
+  padding: 0.75rem 1.5rem;
+  transition: background-color var(--transition-speed),
+    transform var(--transition-speed);
+}
+
+.button:hover {
+  background-color: var(--clr-accent-strong);
+  transform: translateY(-2px);
 }
