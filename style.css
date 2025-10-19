@@ -1,0 +1,97 @@
+/* ===========================
+   Base Layout
+=========================== */
+body {
+  font-family: "Inter", sans-serif;
+  background: var(--clr-bg-dark);
+  color: var(--clr-text-main);
+  min-height: 100vh;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ===========================
+   Main Container
+=========================== */
+.container {
+  display: flex;
+  flex-direction: column;
+  padding: 0 1rem 0 1rem;
+  justify-content: flex-start;
+  background-color: var(--clr-bg-main);
+  min-height: 100vh;
+  min-width: 100%;
+  color: var(--clr-text-main);
+  border-radius: 8px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+}
+
+/* ===========================
+   Header
+=========================== */
+header {
+  background: var(--clr-bg-accent);
+  width: 100%;
+  text-align: center;
+  position: static;
+  color: var(--clr-accent);
+  font-weight: 600;
+  letter-spacing: 1px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+}
+
+/* ===========================
+   Footer
+=========================== */
+footer {
+  margin-top: auto;
+  background: var(--clr-bg-accent);
+  color: var(--clr-text-muted);
+  text-align: center;
+  width: 100%;
+  align-self: stretch; /* makes footer take full width of flex container */
+  font-size: 0.9rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* ===========================
+   Content Elements
+=========================== */
+h1 {
+  color: var(--clr-accent);
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+}
+
+h3 {
+  margin: 0 0 1rem 0;
+}
+
+.task-column {
+  display: flex;
+  flex-direction: column;
+  height: 350px;
+  background-color: var(--clr-bg-dark);
+  margin: 0.5rem;
+  padding: 0.5rem;
+}
+
+.tasks-list {
+  flex-grow: 1;
+  overflow-y: auto;
+  padding-right: 4px; /* optional, avoids scrollbar overlaying text */
+  padding: 0 0 0 0.7rem;
+}
+
+.task-actions {
+  margin: 0.5rem;
+}
+
+.add-task {
+  width: 100%;
+  background-color: var(--clr-bg-main);
+  color: var(--clr-text-main);
+  padding: 0.2rem;
+}

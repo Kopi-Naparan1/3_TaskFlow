@@ -1,0 +1,47 @@
+/* ===========================
+   Necessary Imports & Resets
+=========================== */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Montserrat:wght@100..900&family=Poppins:wght@100..900&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* ===========================
+   Root Variables
+=========================== */
+:root {
+  /* --- Core Brand Palette --- */
+  --clr-bg-dark: #0b132b; /* Deep navy (background base) */
+  --clr-bg-main: #1c2541; /* Secondary background */
+  --clr-bg-accent: #3a506b; /* Card or section backgrounds */
+
+  --clr-accent: #ffd166; /* Softer gold highlight */
+  --clr-accent-strong: #fcca46; /* Brighter golden pop */
+
+  /* --- Text Colors --- */
+  --clr-text-main: #f0f0f0; /* Main text (light neutral) */
+  --clr-text-muted: #a9a9b3; /* Muted text */
+  --clr-text-accent: var(--clr-accent);
+
+  /* --- Font Stacks --- */
+  --font-heading: "Poppins", sans-serif;
+  --font-body: "Inter", sans-serif;
+}
+
+/* ===========================
+   Base Typography & Layout
+=========================== */
+body {
+  font-family: var(--font-body);
+  color: var(--clr-text-main);
+  background-color: var(--clr-bg-dark);
+  line-height: 1.6;
+}

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="description" content="Your page description here" />
+    <title>TaskFlow | Nyro</title>
+    <link rel="stylesheet" href="./style.css" />
+    <link rel="stylesheet" href="./resets.css" />
+  </head>
+  <body>
+    <header role="banner">
+      <h1>TaskFlow</h1>
+    </header>
+    <div class="container">
+      <main role="main">
+        <div class="main-content">
+          <section class="task-category">
+            <h2 contenteditable="true">Enter Task Name</h2>
+          </section>
+
+          <section class="task-board">
+            <div class="task-column" id="todo">
+              <h3>Present Tasks</h3>
+              <div class="tasks-list present">
+                <div class="task" draggable="true">Learn HTML</div>
+                <div class="task" draggable="true">Design CSS layout</div>
+              </div>
+            </div>
+
+            <div class="task-column" id="doing">
+              <h3>Currently Doing Tasks</h3>
+              <div class="tasks-list current">
+                <div class="task" draggable="true">Learn HTML</div>
+                <div class="task" draggable="true">Design CSS layout</div>
+              </div>
+            </div>
+
+            <div class="task-column" id="done">
+              <h3>Completed Tasks</h3>
+              <div class="tasks-list completed">
+                <div class="task" draggable="true">Learn HTML</div>
+                <div class="task" draggable="true">Design CSS layout</div>
+              </div>
+            </div>
+          </section>
+
+          <section class="task-actions">
+            <input
+              class="add-task"
+              type="text"
+              id="new-task"
+              aria-label="Add new task"
+              placeholder="Enter a task"
+            />
+          </section>
+        </div>
+      </main>
+    </div>
+
+    <footer role="contentinfo">
+      <p>&copy; 2025 Nyro | TaskFlow Project</p>
+    </footer>
+    <script src="./js_Files/main.js"></script>
+  </body>
+</html>
