@@ -363,9 +363,9 @@ h3 {
 
   /* icon column slightly bigger for finger taps */
   .icon-wrapper {
-    flex: 0 0 44px;
-    width: 44px;
-    height: 44px;
+    flex: 0 0 34px;
+    width: 24px;
+    height: 24px;
     border-radius: 8px;
   }
 
@@ -384,7 +384,7 @@ h3 {
     top: 50%;
   }
   .icon-wrapper .fa-check {
-    font-size: 0.15rem;
+    font-size: 0.55rem;
     left: 50%;
     top: 50%;
   }
