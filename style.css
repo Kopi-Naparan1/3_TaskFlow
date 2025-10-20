@@ -320,3 +320,105 @@ h3 {
   color: var(--clr-text-muted);
   font-size: 0.3rem;
 }
+
+/* Responsive / Mobile adjustments */
+@media (max-width: 768px) {
+  /* stack columns vertically */
+  .task-board {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .task-column {
+    height: auto; /* let content define height */
+    min-height: 120px;
+    padding: 0.6rem;
+    margin: 0.4rem 0;
+  }
+
+  /* make the lists scrollable but touch-friendly */
+  .tasks-list {
+    max-height: 40vh;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-right: 0.4rem;
+  }
+
+  /* task layout: allow wrapping text and bigger touch targets */
+  .task {
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.6rem;
+  }
+
+  /* allow text to wrap on small screens */
+  .task span {
+    white-space: normal;
+    text-overflow: clip;
+    overflow: visible;
+    padding-right: 0.5rem;
+    font-size: 0.75rem;
+  }
+
+  /* icon column slightly bigger for finger taps */
+  .icon-wrapper {
+    flex: 0 0 44px;
+    width: 44px;
+    height: 44px;
+    border-radius: 8px;
+  }
+
+  .icon-wrapper i {
+    padding: 8px; /* larger hit area */
+    font-size: 0.75rem;
+  }
+
+  h3 {
+    font-size: 0.9rem;
+  }
+
+  .icon-wrapper .fa-circle {
+    font-size: 0.95rem;
+    left: 50%;
+    top: 50%;
+  }
+  .icon-wrapper .fa-check {
+    font-size: 0.15rem;
+    left: 50%;
+    top: 50%;
+  }
+
+  /* keep trash in normal flow on mobile (no negative offset) */
+  .task .fa-trash {
+    left: 0;
+    margin-left: 0.6rem;
+    font-size: 0.75rem;
+    opacity: 0.85;
+  }
+
+  /* slightly larger spacing for header/footer on phones */
+  header,
+  footer {
+    padding: 0.75rem 0.5rem;
+    font-size: 0.95rem;
+  }
+}
+
+/* Small phones — tighten further */
+@media (max-width: 420px) {
+  .icon-wrapper {
+    flex: 0 0 40px;
+    width: 40px;
+    height: 40px;
+  }
+  .icon-wrapper i {
+    padding: 6px;
+  }
+  .task span {
+    font-size: 0.95rem;
+  }
+  .tasks-list {
+    max-height: 50vh;
+  }
+}
